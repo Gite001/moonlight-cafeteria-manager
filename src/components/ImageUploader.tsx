@@ -11,6 +11,7 @@ interface ImageUploaderProps {
 
 export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,7 +36,9 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
     const reader = new FileReader();
     reader.onload = (event) => {
       if (event.target?.result) {
-        onImageUploaded(event.target.result as string);
+        const imageUrl = event.target.result as string;
+        setPreviewUrl(imageUrl);
+        onImageUploaded(imageUrl);
         toast.success("Image téléchargée avec succès");
       }
       setIsUploading(false);
@@ -69,7 +72,7 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
             <span className="animate-pulse">Téléchargement...</span>
           ) : (
             <>
-              <Upload className="h-4 w-4" /> 
+              {previewUrl ? <Image className="h-4 w-4" /> : <Upload className="h-4 w-4" />}
               {buttonText}
             </>
           )}
