@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ColorPicker as LucideColorPicker } from "lucide-react";
+import { Palette } from "lucide-react";
 import { toast } from "sonner";
 
 // Définition des palettes de couleurs
@@ -47,7 +47,7 @@ export function ColorPalette({ onColorSelected }: ColorPaletteProps) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
-          <LucideColorPicker className="h-4 w-4" />
+          <Palette className="h-4 w-4" />
           Palette de couleurs
         </Button>
       </PopoverTrigger>
