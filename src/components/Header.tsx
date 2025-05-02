@@ -5,6 +5,7 @@ import { Moon, Sun, Clock, Calendar, Edit } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { ImageUploader } from "./ImageUploader";
+import { ColorPalette } from "./ColorPalette";
 import { toast } from "sonner";
 
 export function Header() {
@@ -36,6 +37,17 @@ export function Header() {
     if (savedBackground) {
       setBackgroundImage(savedBackground);
       document.documentElement.style.setProperty('--bg-image', `url(${savedBackground})`);
+    }
+
+    // Load custom colors
+    const savedPrimaryColor = localStorage.getItem('cafeMoonlightPrimaryColor');
+    if (savedPrimaryColor) {
+      applyPrimaryColor(JSON.parse(savedPrimaryColor));
+    }
+
+    const savedBackgroundColor = localStorage.getItem('cafeMoonlightBackgroundColor');
+    if (savedBackgroundColor) {
+      applyBackgroundColor(JSON.parse(savedBackgroundColor));
     }
     
     // Update clock
@@ -71,6 +83,27 @@ export function Header() {
     setBackgroundImage(imageUrl);
     document.documentElement.style.setProperty('--bg-image', `url(${imageUrl})`);
     localStorage.setItem('cafeMoonlightBackground', imageUrl);
+  };
+
+  const handleColorSelected = (type: string, color: { value: string; dark: string; light: string }) => {
+    if (type === "primary") {
+      applyPrimaryColor(color);
+      localStorage.setItem('cafeMoonlightPrimaryColor', JSON.stringify(color));
+    } else if (type === "background") {
+      applyBackgroundColor(color);
+      localStorage.setItem('cafeMoonlightBackgroundColor', JSON.stringify(color));
+    }
+  };
+
+  const applyPrimaryColor = (color: { value: string; dark: string; light: string }) => {
+    document.documentElement.style.setProperty('--moonlight', color.value);
+    document.documentElement.style.setProperty('--moonlight-dark', color.dark);
+    document.documentElement.style.setProperty('--moonlight-light', color.light);
+  };
+
+  const applyBackgroundColor = (color: { value: string; dark: string; light: string }) => {
+    document.documentElement.style.setProperty('--background-light', color.light);
+    document.documentElement.style.setProperty('--background-dark', color.dark);
   };
 
   return (
@@ -128,6 +161,7 @@ export function Header() {
               buttonText="Image de fond"
             />
           </div>
+          <ColorPalette onColorSelected={handleColorSelected} />
           <Button
             variant="ghost"
             size="icon"

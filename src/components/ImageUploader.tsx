@@ -67,6 +67,7 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
           variant="outline" 
           className="w-full flex items-center gap-2"
           disabled={isUploading}
+          type="button"
         >
           {isUploading ? (
             <span className="animate-pulse">Téléchargement...</span>

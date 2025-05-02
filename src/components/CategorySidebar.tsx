@@ -2,6 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { CategoryList } from "@/components/CategoryList";
 import { Category } from "@/components/CategoryForm";
+import { ImageUploader } from "@/components/ImageUploader";
+import { useState, useEffect } from "react";
 
 interface CategorySidebarProps {
   categories: Category[];
@@ -16,6 +18,21 @@ export function CategorySidebar({
   onSelectCategory,
   onOpenAdminPanel 
 }: CategorySidebarProps) {
+  const [sidebarImage, setSidebarImage] = useState<string>("/placeholder.svg");
+
+  // Load saved sidebar image on component mount
+  useEffect(() => {
+    const savedImage = localStorage.getItem('cafeMoonlightSidebarImage');
+    if (savedImage) {
+      setSidebarImage(savedImage);
+    }
+  }, []);
+
+  const handleImageUploaded = (imageUrl: string) => {
+    setSidebarImage(imageUrl);
+    localStorage.setItem('cafeMoonlightSidebarImage', imageUrl);
+  };
+
   return (
     <div className="space-y-6">
       <div className="glass-panel rounded-xl p-4">
@@ -36,11 +53,21 @@ export function CategorySidebar({
         />
       </div>
       <div className="glass-panel rounded-xl p-4">
-        <img
-          src="/placeholder.svg"
-          alt="Café ambiance"
-          className="w-full h-48 object-cover rounded-lg"
-        />
+        <div className="space-y-3">
+          <div className="relative">
+            <img
+              src={sidebarImage}
+              alt="Café ambiance"
+              className="w-full h-48 object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-full">
+            <ImageUploader
+              onImageUploaded={handleImageUploaded}
+              buttonText="Changer l'image"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,9 +26,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         moonlight: {
-          DEFAULT: "#C4B08A",
-          dark: "#A69472",
-          light: "#E2D1A9",
+          DEFAULT: "var(--moonlight)",
+          dark: "var(--moonlight-dark)",
+          light: "var(--moonlight-light)",
         },
         cafe: {
           DEFAULT: "#4A3C2B",

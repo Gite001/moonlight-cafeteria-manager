@@ -26,6 +26,11 @@
     --ring: 20 14.3% 4.1%;
     --radius: 0.75rem;
     --bg-image: url('/cafe-bg.jpg');
+    --moonlight: #C4B08A;
+    --moonlight-dark: #A69472;
+    --moonlight-light: #E2D1A9;
+    --background-light: #F5F3EF;
+    --background-dark: #1A1814;
   }
   
   .dark {
