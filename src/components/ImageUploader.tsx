@@ -70,13 +70,13 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
           type="button"
           asChild
         >
-          <div>
+          <div className="flex items-center justify-center w-full">
             {isUploading ? (
               <span className="animate-pulse">Téléchargement...</span>
             ) : (
               <>
-                {previewUrl ? <Image className="h-4 w-4" /> : <Upload className="h-4 w-4" />}
-                {buttonText}
+                {previewUrl ? <Image className="h-4 w-4 mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
+                <span>{buttonText}</span>
               </>
             )}
           </div>
