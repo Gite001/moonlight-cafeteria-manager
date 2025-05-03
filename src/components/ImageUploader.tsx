@@ -19,14 +19,14 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
 
     setIsUploading(true);
 
-    // Check if file is an image
+    // Vérifier si le fichier est une image
     if (!file.type.startsWith("image/")) {
       toast.error("Veuillez sélectionner une image valide");
       setIsUploading(false);
       return;
     }
 
-    // Check file size (max 5MB)
+    // Vérifier la taille du fichier (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error("L'image est trop volumineuse (max 5MB)");
       setIsUploading(false);
@@ -68,15 +68,18 @@ export function ImageUploader({ onImageUploaded, buttonText }: ImageUploaderProp
           className="w-full flex items-center gap-2"
           disabled={isUploading}
           type="button"
+          asChild
         >
-          {isUploading ? (
-            <span className="animate-pulse">Téléchargement...</span>
-          ) : (
-            <>
-              {previewUrl ? <Image className="h-4 w-4" /> : <Upload className="h-4 w-4" />}
-              {buttonText}
-            </>
-          )}
+          <div>
+            {isUploading ? (
+              <span className="animate-pulse">Téléchargement...</span>
+            ) : (
+              <>
+                {previewUrl ? <Image className="h-4 w-4" /> : <Upload className="h-4 w-4" />}
+                {buttonText}
+              </>
+            )}
+          </div>
         </Button>
       </label>
     </div>
